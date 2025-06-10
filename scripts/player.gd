@@ -1,12 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
-enum ControlScheme {
-	CPU, P1, P2
-}
-enum State {
-	MOVING, TACKLING
-}
+enum ControlScheme {CPU, P1, P2}
+enum State {MOVING, TACKLING, RECOVERING}
 
 @export var control_scheme : ControlScheme
 @export var speed : float
