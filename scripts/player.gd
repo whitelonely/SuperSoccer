@@ -2,10 +2,13 @@ class_name Player
 extends CharacterBody2D
 
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPING_SHOT, SHOOTING}
 
+@export var ball : Ball
 @export var control_scheme : ControlScheme
 @export var speed : float
+@export var power : float
+
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var player_sprite: Sprite2D = %Sprite2D
 
@@ -50,3 +53,7 @@ func flip_sprites() -> void:
 		player_sprite.flip_h = true
 	# 简写方案
 	#player_sprite.flip_h = true if heading == Vector2.RIGHT else false
+
+# 是否持球
+func has_ball() -> bool:
+	return ball.carrier == self
