@@ -23,11 +23,11 @@ func _process(_delta: float) -> void:
 	flip_sprites()
 	move_and_slide()
 
-func switch_state(state: State) -> void:
+func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
 		current_state.queue_free()
 	current_state = state_factory.get_fresh_state(state)
-	current_state.setup(self, animation_player)
+	current_state.setup(self, state_data, animation_player, ball)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "玩家状态机：" + str(state)
 	call_deferred("add_child", current_state)
@@ -57,3 +57,8 @@ func flip_sprites() -> void:
 # 是否持球
 func has_ball() -> bool:
 	return ball.carrier == self
+
+# 回调，pre_kick结束时跳转到kick
+func on_animation_complete() -> void:
+	if current_state != null:
+		current_state.on_animation_complete()
