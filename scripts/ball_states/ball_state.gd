@@ -32,7 +32,7 @@ func set_ball_anim_from_velocity() -> void:
 		animation_player.advance(0)
 
 # bounciness弹跳因子，主要负责足球自由状态下的落地弹跳
-func process_gravity(delta: float, bounciness: float) -> void:
+func process_gravity(delta: float, bounciness: float = 0.0) -> void:
 	if ball.height > 0 or ball.height_velocity > 0:
 		ball.height_velocity -= GRAVITY * delta
 		ball.height += ball.height_velocity
