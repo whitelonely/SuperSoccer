@@ -8,12 +8,7 @@ const SHOT_HEIGHT := 5.0
 var time_since_shot := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
-	if ball.velocity.x >= 0:
-		animation_player.play("roll")
-		animation_player.advance(0)
-	else:
-		animation_player.play_backwards("roll")
-		animation_player.advance(0)
+	set_ball_anim_from_velocity()
 	sprite.scale.y = SHOT_SPRITE_SCALE
 	ball.height = SHOT_HEIGHT
 	time_since_shot = Time.get_ticks_msec()
