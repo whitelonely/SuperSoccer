@@ -10,10 +10,15 @@ const GRAVITY := 8.0
 
 enum ControlScheme {CPU, P1, P2}
 enum State {
-	MOVING, TACKLING, 
-	RECOVERING, PREPPING_SHOT, 
-	SHOOTING, PASSING,
-	HEADER, VOLLEY_KICK, BICYCLE_KICK
+	MOVING, 
+	TACKLING, 
+	RECOVERING, 
+	PREPPING_SHOT, 
+	SHOOTING, 
+	PASSING,
+	HEADER, 
+	VOLLEY_KICK, 
+	BICYCLE_KICK
 }
 
 @export var ball : Ball
@@ -47,11 +52,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 	if current_state != null:
 		current_state.queue_free()
 	current_state = state_factory.get_fresh_state(state)
-	current_state.setup(
-		self, state_data, 
-		animation_player, ball, 
-		teammate_dect_area, 
-		ball_detection_area)
+	current_state.setup(self, state_data, animation_player, ball, teammate_dect_area, ball_detection_area)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "玩家状态机：" + str(state)
 	call_deferred("add_child", current_state)
@@ -86,7 +87,7 @@ func flip_sprites() -> void:
 	# 简写方案
 	#player_sprite.flip_h = true if heading == Vector2.RIGHT else false
 
-# 精灵可见性控制
+# 精灵头顶标识可见性控制
 func set_sprite_visibility() -> void:
 	control_sprite.visible = has_ball() or not control_scheme == ControlScheme.CPU
 

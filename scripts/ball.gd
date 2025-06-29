@@ -4,7 +4,11 @@ extends AnimatableBody2D
 const BOUNCINESS := 0.8
 const DISTANCE_HIGH_PASS := 130
 
-enum State {CARRIED, FREEFORM, SHOT}
+enum State {
+	CARRIED, 
+	FREEFORM, 
+	SHOT
+}
 
 #const FRICTION_AIR := 35.0
 #const FRICTION_GROUND := 250.0

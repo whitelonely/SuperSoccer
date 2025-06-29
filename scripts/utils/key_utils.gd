@@ -1,7 +1,12 @@
 extends Node
 
 enum ACTION {
-	LEFT, RIGHT, UP, DOWN, SHOOT, PASS
+	LEFT, 
+	RIGHT, 
+	UP, 
+	DOWN, 
+	SHOOT, 
+	PASS
 }
 
 const ACTION_MAP : Dictionary = {
@@ -32,3 +37,6 @@ func is_action_pressed(scheme: Player.ControlScheme, action: ACTION) -> bool:
 
 func is_action_just_pressed(scheme: Player.ControlScheme, action: ACTION) -> bool:
 	return Input.is_action_just_pressed(ACTION_MAP[scheme][action])
+
+func is_action_just_released(scheme: Player.ControlScheme, action: ACTION) -> bool:
+	return Input.is_action_just_released(ACTION_MAP[scheme][action])

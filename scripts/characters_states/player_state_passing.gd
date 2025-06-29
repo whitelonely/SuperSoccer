@@ -17,7 +17,8 @@ func find_teammate_in_view() -> Player:
 	var players_in_view := teammate_dect_area.get_overlapping_bodies()
 	# 剔除自己与敌方
 	var teammates_in_view := players_in_view.filter(
-		func(p: Player): return p != player
+		func(p: Player): 
+			return p != player
 	)
 	# 根据距离排序
 	teammates_in_view.sort_custom(

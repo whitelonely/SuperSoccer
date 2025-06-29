@@ -8,7 +8,7 @@ func on_player_enter(body:Player) -> void:
 	ball.carrier = body
 	state_transition_requested.emit(Ball.State.CARRIED)
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	set_ball_anim_from_velocity()
 	var friction := ball.friction_air if ball.height > 0 else ball.friction_ground
 	ball.velocity = ball.velocity.move_toward(Vector2.ZERO, friction * delta)

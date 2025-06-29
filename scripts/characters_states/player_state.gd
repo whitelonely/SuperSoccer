@@ -11,10 +11,8 @@ var teammate_dect_area : Area2D = null
 var ball_detection_area : Area2D = null
 
 func setup(
-	context_player: Player, 
-	context_data: PlayerStateData, 
-	content_anim_player: AnimationPlayer, 
-	context_ball: Ball, 
+	context_player: Player, context_data: PlayerStateData, 
+	content_anim_player: AnimationPlayer, context_ball: Ball, 
 	context_teammate_dect_area: Area2D, 
 	context_ball_detection_area: Area2D
 	) -> void:

@@ -24,13 +24,11 @@ func handle_human_move() -> void:
 			transition_state(Player.State.PASSING)
 		elif KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.ACTION.SHOOT):
 			transition_state(Player.State.PREPPING_SHOT)
-	elif ball.can_air_interact():
-		if KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.ACTION.SHOOT):
-			if player.velocity == Vector2.ZERO:
-				pass
-			else:
-				transition_state(Player.State.HEADER)
-		pass
+	elif ball.can_air_interact() and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.ACTION.SHOOT):
+		if player.velocity == Vector2.ZERO:
+			pass
+		else:
+			transition_state(Player.State.HEADER)
 	
 	#if player.velocity != Vector2.ZERO and KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.ACTION.SHOOT):
 		#state_transition_requested.emit(Player.State.TACKLING)

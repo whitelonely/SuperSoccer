@@ -15,7 +15,7 @@ func _enter_tree() -> void:
 
 func _process(delta: float) -> void:
 	shot_direction += KeyUtils.get_input_vector(player.control_scheme) * delta
-	if KeyUtils.is_action_just_pressed(player.control_scheme, KeyUtils.ACTION.SHOOT):
+	if KeyUtils.is_action_just_released(player.control_scheme, KeyUtils.ACTION.SHOOT):
 		var duration_press := clampf(Time.get_ticks_msec() - time_start_shot, 0.0, DURATION_MAX_BONUS)
 		var ease_time := duration_press / DURATION_MAX_BONUS
 		var bonus := ease(ease_time, EASE_REWARD_FACTOR)

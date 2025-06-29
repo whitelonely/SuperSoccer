@@ -12,7 +12,7 @@ func _enter_tree() -> void:
 	assert(carrier != null)
 
 func _process(delta: float) -> void:
-	var vx = 0.0
+	var vx := 0.0
 	dribble_time += delta
 	
 	if carrier.velocity != Vector2.ZERO:
