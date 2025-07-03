@@ -13,7 +13,7 @@ func _enter_tree() -> void:
 	ball.height = SHOT_HEIGHT
 	time_since_shot = Time.get_ticks_msec()
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Time.get_ticks_msec() - time_since_shot > DURATION_SHOT:
 		state_transition_requested.emit(Ball.State.FREEFORM)
 	else:

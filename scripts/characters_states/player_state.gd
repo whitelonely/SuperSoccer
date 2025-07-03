@@ -9,12 +9,16 @@ var state_data : PlayerStateData = PlayerStateData.new()
 var ball : Ball = null
 var teammate_dect_area : Area2D = null
 var ball_detection_area : Area2D = null
+var own_goal : Goal = null
+var target_goal : Goal = null
 
 func setup(
 	context_player: Player, context_data: PlayerStateData, 
 	content_anim_player: AnimationPlayer, context_ball: Ball, 
 	context_teammate_dect_area: Area2D, 
-	context_ball_detection_area: Area2D
+	context_ball_detection_area: Area2D,
+	context_own_goal: Goal,
+	context_target_goal: Goal
 	) -> void:
 	player = context_player
 	state_data = context_data
@@ -22,6 +26,8 @@ func setup(
 	ball = context_ball
 	teammate_dect_area = context_teammate_dect_area
 	ball_detection_area = context_ball_detection_area
+	own_goal = context_own_goal
+	target_goal = context_target_goal
 
 func transition_state(new_state: Player.State, data: PlayerStateData = PlayerStateData.new()) -> void:
 	state_transition_requested.emit(new_state, data)
