@@ -10,6 +10,7 @@ func _init() -> void:
 		Player.State.PREPPING_SHOT: PlayerStatePreppingShot,
 		Player.State.SHOOTING: PlayerStateShooting,
 		Player.State.PASSING: PlayerStatePassing,
+		Player.State.CHEST_CONTROL: PlayerStateChestControl,
 		Player.State.BICYCLE_KICK: PlayerStateBicycleKick,
 		Player.State.VOLLEY_KICK: PlayerStateVolleyKick,
 		Player.State.HEADER: PlayerStateHeader

@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
+const BALL_CONTROL_MAX_HEIGHT := 10.0
 const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.CPU: preload("res://assets/art/props/cpu.png"),
 	ControlScheme.P1: preload("res://assets/art/props/1p.png"),
@@ -18,7 +19,8 @@ enum State {
 	PASSING,
 	HEADER, 
 	VOLLEY_KICK, 
-	BICYCLE_KICK
+	BICYCLE_KICK,
+	CHEST_CONTROL
 }
 
 @export var ball : Ball
@@ -108,3 +110,8 @@ func set_control_texture() -> void:
 func on_animation_complete() -> void:
 	if current_state != null:
 		current_state.on_animation_complete()
+
+# 胸部控球
+func control_ball() -> void:
+	if ball.height > BALL_CONTROL_MAX_HEIGHT:
+		switch_state(Player.State.CHEST_CONTROL)
