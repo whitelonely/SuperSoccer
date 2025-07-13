@@ -10,6 +10,10 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 const GRAVITY := 8.0
 
 enum ControlScheme {CPU, P1, P2}
+# 守门员、后卫、中锋、前锋
+enum Role {GOALIE, DEFENCE, MINDFIELD, OFFENSE}
+# 肤色：浅色、一般、深色
+enum SkinColor {LIGHT, MEDIUM, DARK}
 enum State {
 	MOVING, 
 	TACKLING, 
@@ -42,6 +46,10 @@ var heading := Vector2.RIGHT
 var height := 0.0
 var height_velocity := 0.0
 
+var fullname := ""
+var role := Player.Role.MINDFIELD
+var skin_color := Player.SkinColor.MEDIUM
+
 func _ready() -> void:
 	set_control_texture()
 	switch_state(State.MOVING)
@@ -51,6 +59,19 @@ func _process(delta: float) -> void:
 	set_sprite_visibility()
 	process_gravity(delta)
 	move_and_slide()
+
+func initialize(context_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal:Goal, context_player_data: PlayerResource) -> void:
+	position = context_position
+	ball = context_ball
+	own_goal = context_own_goal
+	target_goal = context_target_goal
+	speed = context_player_data.speed
+	power = context_player_data.power
+	fullname = context_player_data.full_name
+	role = context_player_data.role
+	skin_color = context_player_data.skin_color
+	
+	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
 
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
