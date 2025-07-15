@@ -4,7 +4,7 @@ extends PlayerState
 func _process(_delta: float) -> void:
 	if player.control_scheme == Player.ControlScheme.CPU:
 		# AI movement
-		pass
+		ai_behavior.process_ai()
 	else:
 		# Player movement (P1 P2)
 		handle_human_move()

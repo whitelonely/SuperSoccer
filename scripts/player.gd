@@ -7,7 +7,9 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.P1: preload("res://assets/art/props/1p.png"),
 	ControlScheme.P2: preload("res://assets/art/props/2p.png")
 }
-const COUNTRIES := ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA"]
+const COUNTRIES := ["DEFAULT", "FRANCE", "ARGENTINA", 
+					"BRAZIL", "", "GERMANY", "ITALY", 
+					"SPAIN", "USA"]
 const GRAVITY := 8.0
 
 enum ControlScheme {CPU, P1, P2}
@@ -16,16 +18,9 @@ enum Role {GOALIE, DEFENCE, MINDFIELD, OFFENSE}
 # 肤色：浅色、一般、深色
 enum SkinColor {LIGHT, MEDIUM, DARK}
 enum State {
-	MOVING, 
-	TACKLING, 
-	RECOVERING, 
-	PREPPING_SHOT, 
-	SHOOTING, 
-	PASSING,
-	HEADER, 
-	VOLLEY_KICK, 
-	BICYCLE_KICK,
-	CHEST_CONTROL
+	MOVING, TACKLING, RECOVERING, PREPPING_SHOT, 
+	SHOOTING, PASSING, HEADER, VOLLEY_KICK, 
+	BICYCLE_KICK, CHEST_CONTROL
 }
 
 @export var ball : Ball
@@ -52,10 +47,16 @@ var fullname := ""
 var role := Player.Role.MINDFIELD
 var skin_color := Player.SkinColor.MEDIUM
 
+var ai_behavior : AIBehavior = AIBehavior.new()
+var spawn_position := Vector2.ZERO
+var weight_on_duty_steering := 0.0
+
 func _ready() -> void:
 	set_control_texture()
 	switch_state(State.MOVING)
 	set_shader_properties()
+	setup_ai_behavior()
+	spawn_position = position
 
 func _process(delta: float) -> void:
 	flip_sprites()
@@ -86,6 +87,11 @@ context_player_data: PlayerResource, context_country: String
 	
 	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
 
+func setup_ai_behavior() -> void:
+	ai_behavior.setup(self, ball)
+	ai_behavior.name = "AI行为"
+	add_child(ai_behavior)
+
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
 		current_state.queue_free()
@@ -93,7 +99,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 	current_state.setup(
 		self, state_data, animation_player, ball, 
 		teammate_dect_area, ball_detection_area,
-		own_goal, target_goal)
+		own_goal, target_goal, ai_behavior)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "玩家状态机：" + str(state)
 	call_deferred("add_child", current_state)
